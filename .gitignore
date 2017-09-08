@@ -3,6 +3,6 @@
 /cmast
 
 # aliases
-/true
-/false
 /basename
+/false
+/true
