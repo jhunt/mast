@@ -1,0 +1,88 @@
+#!/bin/sh
+set -u
+
+# runtest - Run a single test suite, and report its failure / success
+#
+# USAGE: runtest (pass|fail) path/to/test [arguments [to [test ...]]]
+#
+
+
+export SKIP_THIS_TEST=77
+
+want=$1
+shift
+
+case "$want" in
+pass|fail) ;; # legal
+*)  echo "OOPS: invalid invocation of runtest [$0 $@]"
+    echo >&2 "(runtest) USAGE: runtest (pass|fail) path/to/test [arguments [to [test ...]]]"
+    exit 1
+    ;;
+esac
+
+script=$1
+shift
+if [ -z "$script" ]; then
+  echo "OOPS: invalid invocation of runtest [$0 $@]"
+  echo >&2 "(runtest) USAGE: runtest (pass|fail) path/to/test [arguments [to [test ...]]]"
+  exit 1
+fi
+
+testname=`basename $script`
+if [ ! -e "$script" ]; then
+  echo "OOPS: $testname ... runtest failed; script '$script' does not exist"
+  echo >&2 "(runtest) PWD is $PWD"
+  exit 1
+fi
+if [ ! -f "$script" ] || [ ! -x "$script" ]; then
+  echo "OOPS: $testname ... runtest failed; script '$script' is not executable"
+  echo >&2 "(runtest) script '$script' is not executable"
+  echo >&2 "(runtest) PWD is $PWD"
+  stat "$script" | sed -e 's/^/(runtest) /' >&2
+  exit 1
+fi
+
+testdir="$script.d"
+rm -rf $testdir
+mkdir -p $testdir
+$script "$@" >$testdir/stdout 2>$testdir/stderr
+rc=$?
+dump=0
+case $rc in
+$SKIP_THIS_TEST)
+  echo "SKIP: $testname"
+  rc=0
+  ;;
+0)
+  if [ "$want" = "pass" ]; then
+    echo "PASS: $testname ... ok"
+    rc=0
+  else
+    echo "FAIL: $testname ... passed unexpectedly"
+    rc=1
+    dump=1
+  fi
+  ;;
+*)
+  if [ "$want" = "fail" ]; then
+    echo "PASS: $testname ... ok"
+    rc=0
+  else
+    echo "FAIL: $testname ... failed with exit code $rc"
+    rc=1
+    dump=1
+  fi
+  ;;
+esac
+
+if [ "$dump" = "1" ]; then
+  (echo "----[ stdout ]-----------------------------------------------"
+   cat $testdir/stdout; echo; echo
+   echo "----[ stderr ]-----------------------------------------------"
+   cat $testdir/stderr; echo; echo
+   echo "-------------------------------------------------------------"
+   echo) | sed -e 's/^/   /'
+fi
+
+rm -rf $testdir
+exit $rc

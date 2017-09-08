@@ -1,0 +1,18 @@
+#!/bin/sh
+
+ok=0
+pre=`dirname "$0"`
+echo; echo "RUNNING MAST TEST SUITE"; echo
+for t in "$@"; do
+  $pre/runtest pass $t 2>&1
+  if [ $? != 0 ]; then
+    ok=1
+  fi
+done
+
+if [ $ok != 0 ]; then
+  echo; echo "SOME TESTS FAILED"; echo
+else
+  echo; echo "ALL TESTS PASSED"; echo
+fi
+exit $ok
