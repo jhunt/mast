@@ -6,8 +6,8 @@
 
 UTILITY(basename);
 UTILITY(cat);
-UTILITY(true);
 UTILITY(false);
+UTILITY(true);
 UTILITY(wc);
 
 typedef int (*mainfn)(int, char **, char **);
