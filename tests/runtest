@@ -45,7 +45,8 @@ fi
 testdir="$script.d"
 rm -rf $testdir
 mkdir -p $testdir
-$script "$@" >$testdir/stdout 2>$testdir/stderr
+TEST_DIR="$testdir" \
+  $script "$@" >$testdir/stdout 2>$testdir/stderr
 rc=$?
 dump=0
 case $rc in
