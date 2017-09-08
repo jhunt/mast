@@ -9,12 +9,14 @@ UTILS += util/basename.c
 UTILS += util/cat.c
 UTILS += util/false.c
 UTILS += util/true.c
+UTILS += util/wc.c
 
 ALIASES :=
 ALIASES += basename
 ALIASES += cat
 ALIASES += false
 ALIASES += true
+ALIASES += wc
 
 all: $(BINS)
 	strip --strip-all $+
