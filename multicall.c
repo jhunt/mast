@@ -5,6 +5,7 @@
 #define UTILITY(x) extern int x ## _main(int, char **, char **)
 
 UTILITY(basename);
+UTILITY(cat);
 UTILITY(true);
 UTILITY(false);
 
@@ -14,6 +15,7 @@ static struct {
 	mainfn      handler;
 } UTILS[] = {
 	{ "basename", basename_main },
+	{ "cat",      cat_main      },
 	{ "false",    false_main    },
 	{ "true",     true_main     },
 	{ NULL, NULL }

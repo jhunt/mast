@@ -6,11 +6,13 @@ FUNCS += basename
 
 UTILS :=
 UTILS += util/basename.c
+UTILS += util/cat.c
 UTILS += util/false.c
 UTILS += util/true.c
 
 ALIASES :=
 ALIASES += basename
+ALIASES += cat
 ALIASES += false
 ALIASES += true
 
