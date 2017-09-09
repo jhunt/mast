@@ -9,6 +9,7 @@ UTILS += util/basename.c
 UTILS += util/cat.c
 UTILS += util/false.c
 UTILS += util/true.c
+UTILS += util/uniq.c
 UTILS += util/wc.c
 
 ALIASES :=
@@ -16,6 +17,7 @@ ALIASES += basename
 ALIASES += cat
 ALIASES += false
 ALIASES += true
+ALIASES += uniq
 ALIASES += wc
 
 all: $(BINS)

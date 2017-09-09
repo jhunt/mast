@@ -8,6 +8,7 @@ UTILITY(basename);
 UTILITY(cat);
 UTILITY(false);
 UTILITY(true);
+UTILITY(uniq);
 UTILITY(wc);
 
 typedef int (*mainfn)(int, char **, char **);
@@ -19,6 +20,7 @@ static struct {
 	{ "cat",      cat_main      },
 	{ "false",    false_main    },
 	{ "true",     true_main     },
+	{ "uniq",     uniq_main     },
 	{ "wc",       wc_main       },
 	{ NULL, NULL }
 };
