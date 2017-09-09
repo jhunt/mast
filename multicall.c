@@ -6,6 +6,7 @@
 
 UTILITY(basename);
 UTILITY(cat);
+UTILITY(cmp);
 UTILITY(false);
 UTILITY(true);
 UTILITY(uniq);
@@ -18,6 +19,7 @@ static struct {
 } UTILS[] = {
 	{ "basename", basename_main },
 	{ "cat",      cat_main      },
+	{ "cmp",      cmp_main      },
 	{ "false",    false_main    },
 	{ "true",     true_main     },
 	{ "uniq",     uniq_main     },

@@ -5,6 +5,7 @@
 # aliases
 /basename
 /cat
+/cmp
 /false
 /true
 /uniq
